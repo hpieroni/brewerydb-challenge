@@ -1,3 +1,5 @@
+import { AnyObject } from './types';
+
 /**
  * Return a new object without properties which values is equal to `value`.
  *
@@ -10,13 +12,13 @@
  */
 const removePropsWith =
   (value: unknown) =>
-  <T extends Record<string, unknown>>(obj: T): T => {
-    return Object.keys(obj).reduce<T>((acc: T, key: keyof T) => {
+  <T extends AnyObject>(obj: Readonly<T>): Partial<T> => {
+    return Object.keys(obj).reduce((acc: Partial<T>, key: keyof T) => {
       if (obj[key] !== value) {
         acc[key] = obj[key];
       }
       return acc;
-    }, {} as T);
+    }, {} as Partial<T>);
   };
 
 export default removePropsWith;
