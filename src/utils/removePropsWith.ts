@@ -7,6 +7,7 @@ import { AnyObject } from './types';
  *  removePropsWith(1)({}); // -> {}
  *  removePropsWith(2)({ foo: 1, bar: 2 }); // -> { bar: 2 }
  *
+ * @param {*} value Property value to remove from object.
  * @param {object} object The object to remove properties which values are `value`.
  * @returns {object} The original object without properties which values are `value`.
  */

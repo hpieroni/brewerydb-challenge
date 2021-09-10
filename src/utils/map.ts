@@ -1,18 +1,17 @@
 /**
- * Transforms a string so that the first letter is capitalized and the rest is lowercased.
+ * Transforms each element of an array with a given function.
  *
- * @function
  * @example
- *  capitalize(""); // -> ""
- *  capitalize("foo"); // -> "Foo"
- *  capitalize("aBcDEf"); // -> "Abcdef"
+ *  map(n => n+1)([])); // -> []
+ *  map(n => n+1)([1,2])); // -> [2,3]
  *
- * @param {string} str The string to capitalize
- * @returns {string} The original string with the first letter capitalized.
+ * @param {Function} fn The mapping function
+ * @param {Array} array The array to map
+ * @returns {Array} The transformed array.
  */
 const map =
   <T, U>(fn: (value: T) => U) =>
-  (array: ReadonlyArray<T>): U[] =>
+  (array: T[]): U[] =>
     array.map(fn);
 
 export default map;
