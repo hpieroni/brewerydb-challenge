@@ -7,3 +7,4 @@ export { default as prop } from './prop';
 export { default as removeNulls } from './removeNulls';
 export { default as removePropsWith } from './removePropsWith';
 export { default as snakeToCamel } from './snakeToCamel';
+export { sort, sortBy, sortByProp } from './sort';
