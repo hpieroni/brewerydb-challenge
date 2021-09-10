@@ -1,17 +1,9 @@
-import capitalize from './capitalize';
-import map from './map';
-import mapKeys from './mapKeys';
-import pipe from './pipe';
-import removeNulls from './removeNulls';
-import removePropsWith from './removePropsWith';
-import snakeToCamel from './snakeToCamel';
-
-export {
-  capitalize,
-  map,
-  mapKeys,
-  pipe,
-  removeNulls,
-  removePropsWith,
-  snakeToCamel,
-};
+export { default as capitalize } from './capitalize';
+export { default as identity } from './identity';
+export { default as map } from './map';
+export { default as mapKeys } from './mapKeys';
+export { default as pipe } from './pipe';
+export { default as prop } from './prop';
+export { default as removeNulls } from './removeNulls';
+export { default as removePropsWith } from './removePropsWith';
+export { default as snakeToCamel } from './snakeToCamel';

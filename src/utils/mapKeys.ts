@@ -1,7 +1,5 @@
 import { AnyObject } from './types';
 
-/* eslint-disable  @typescript-eslint/no-explicit-any */
-
 /**
  * Map keys on an objects by running a mapping function to each one.
  *
@@ -15,6 +13,6 @@ const mapKeys =
     Object.keys(obj).reduce((acc, key) => {
       acc[fn(key)] = obj[key];
       return acc;
-    }, {} as any);
+    }, {} as any); // eslint-disable-line @typescript-eslint/no-explicit-any
 
 export default mapKeys;
