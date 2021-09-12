@@ -1,43 +1,58 @@
-import { map, mapKeys, pipe, removeNulls, snakeToCamel } from '../utils';
+import {
+  groupByProp,
+  map,
+  mapKeys,
+  mapValues,
+  pipe,
+  removeNulls,
+  snakeToCamel,
+  sortByProp,
+} from '../utils';
 import { SnakeToCamelKeys } from '../utils/types';
 
 type RawBrewery = {
   id: number;
-  obdb_id: string | null;
-  name: string | null;
-  brewery_type: string | null;
+  obdb_id: string;
+  name: string;
+  brewery_type: string;
   street: string | null;
   address_2: string | null;
   address_3: string | null;
   city: string | null;
-  state: string | null;
+  state: string;
   county_province: string | null;
   postal_code: string | null;
-  country: string | null;
+  country: string;
   longitude: string | null;
   latitude: string | null;
   phone: string | null;
   website_url: string | null;
-  updated_at: string | null;
-  created_at: string | null;
+  updated_at: string;
+  created_at: string;
 };
 
-type PartialRawBrewery = Partial<RawBrewery>;
-type Brewery = SnakeToCamelKeys<PartialRawBrewery>;
+type Brewery = SnakeToCamelKeys<RawBrewery>;
+type GroupedBreweries = Record<string, Brewery[]>;
 
-// Step 1
-const removeNullPropertiesFromObjects = map(removeNulls);
-// Step 2
-const transformObjectKeysToCamelCase = map(
-  mapKeys<PartialRawBrewery, Brewery>(snakeToCamel)
+const removeNullPropertiesFromObjects = map<RawBrewery, RawBrewery>(
+  removeNulls
 );
 
-function etl(rawBreweries: RawBrewery[]): Brewery[] {
+const transformObjectKeysToCamelCase = map<RawBrewery, Brewery>(
+  mapKeys(snakeToCamel)
+);
+
+const groupByStateAndSortByCreatedAt = pipe(
+  groupByProp<Brewery>('state'),
+  mapValues<GroupedBreweries, Brewery[]>(sortByProp('createdAt', 'desc'))
+);
+
+function etl(rawBreweries: RawBrewery[]): GroupedBreweries {
   const pipeline = pipe(
     removeNullPropertiesFromObjects,
-    transformObjectKeysToCamelCase
+    transformObjectKeysToCamelCase,
+    groupByStateAndSortByCreatedAt
   );
-
   return pipeline(rawBreweries);
 }
 

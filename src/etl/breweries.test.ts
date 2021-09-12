@@ -23,20 +23,22 @@ const rawBreweries = [
   },
 ];
 
-const expectedOutput = [
-  {
-    id: 9094,
-    obdbId: 'bnaf-llc-austin',
-    name: 'Bnaf, LLC',
-    breweryType: 'planning',
-    city: 'Austin',
-    state: 'Texas',
-    postalCode: '78727-7602',
-    country: 'United States',
-    updatedAt: '2018-07-24T00:00:00.000Z',
-    createdAt: '2017-07-24T00:00:00.000Z',
-  },
-];
+const expectedOutput = {
+  Texas: [
+    {
+      id: 9094,
+      obdbId: 'bnaf-llc-austin',
+      name: 'Bnaf, LLC',
+      breweryType: 'planning',
+      city: 'Austin',
+      state: 'Texas',
+      postalCode: '78727-7602',
+      country: 'United States',
+      updatedAt: '2018-07-24T00:00:00.000Z',
+      createdAt: '2017-07-24T00:00:00.000Z',
+    },
+  ],
+};
 
 describe('`capitalize` function', () => {
   test('should return an empty string if input is ``', () => {
