@@ -12,7 +12,7 @@ describe('sorting functions', () => {
       );
     });
 
-    test('should return a new array', () => {
+    test('should return a new array and not mutate the original', () => {
       const numbers = [2, 1];
       expect(sort(numbers)).not.toBe(numbers);
     });
@@ -49,7 +49,7 @@ describe('sorting functions', () => {
       );
     });
 
-    test('should return a new array', () => {
+    test('should return a new array and not mutate the original', () => {
       const sortyByAge = sortByProp('age');
       const people = [{ age: 2 }, { age: 1 }];
       expect(sortyByAge(people)).not.toBe(people);
@@ -83,7 +83,7 @@ describe('sorting functions', () => {
       expect(sortyByAbs(numbers)).toEqual(expect.arrayContaining(orderedByAbs));
     });
 
-    test('should return a new array', () => {
+    test('should return a new array and not mutate the original', () => {
       const sortyByAbs = sortBy(Math.abs);
       const numbers = [2, 1];
       expect(sortyByAbs(numbers)).not.toBe(numbers);

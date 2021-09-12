@@ -8,18 +8,20 @@ import { AnyObject } from './types';
  *  removePropsWith(2)({ foo: 1, bar: 2 }); // -> { bar: 2 }
  *
  * @param {*} value Property value to remove from object.
- * @param {object} object The object to remove properties which values are `value`.
- * @returns {object} The original object without properties which values are `value`.
+ * @param {Object} object The object to remove properties which values are `value`.
+ * @returns {Object} The original object without properties which values are `value`.
  */
 const removePropsWith =
   (value: unknown) =>
-  <T extends AnyObject>(obj: Readonly<T>): Partial<T> => {
-    return Object.keys(obj).reduce((acc: Partial<T>, key: keyof T) => {
+  <T extends AnyObject>(obj: T): T => {
+    const keys = Object.keys(obj) as Array<keyof T>;
+
+    return keys.reduce((acc, key) => {
       if (obj[key] !== value) {
         acc[key] = obj[key];
       }
       return acc;
-    }, {} as Partial<T>);
+    }, {} as T);
   };
 
 export default removePropsWith;

@@ -13,8 +13,8 @@ import { AnyObject } from './types';
  * @returns {*} The value in the object[key].
  */
 const prop =
-  <T extends AnyObject>(key: keyof T) =>
-  (obj: T): T[keyof T] =>
+  <T extends AnyObject, K extends keyof T>(key: K) =>
+  (obj: T): T[K] =>
     obj[key];
 
 export default prop;

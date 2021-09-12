@@ -4,6 +4,8 @@ import identity from './identity';
 
 type SortOrder = 'asc' | 'desc';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 /**
  * Sort an array by a given function in `asc` or `desc` order.
  *
@@ -16,9 +18,8 @@ type SortOrder = 'asc' | 'desc';
  * @param {Array} array The array to be sorted.
  * @returns {Array} The sorted array by the given function.
  */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export const sortBy =
-  <T>(fn: (obj: T) => any, order: SortOrder = 'asc') =>
+  <T>(fn: (item: T) => any, order: SortOrder = 'asc') =>
   (array: T[]): T[] =>
     [...array].sort((x, y) => {
       if (order === 'desc') {

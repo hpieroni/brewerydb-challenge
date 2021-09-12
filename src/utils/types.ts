@@ -1,5 +1,7 @@
 export type AnyObject = Record<string, unknown>;
 
+export type ValueOf<T> = T[keyof T];
+
 type SnakeToCamelCase<S extends string> =
   S extends `${infer A}_${infer B}${infer C}`
     ? `${Lowercase<A>}${Capitalize<B>}${SnakeToCamelCase<C>}`

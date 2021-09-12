@@ -22,7 +22,7 @@ describe('`removePropsWith` function', () => {
     expect(() => removeOnes(obj)).not.toThrow();
   });
 
-  test('should always return a new object', () => {
+  test('should return a new object and not mutate the original', () => {
     let obj1 = {};
     let obj2 = removeOnes(obj1);
     expect(removeOnes(obj1)).not.toBe(obj2);

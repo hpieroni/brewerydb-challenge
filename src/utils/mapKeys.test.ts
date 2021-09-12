@@ -18,4 +18,14 @@ describe('`mapKeys` function', () => {
       BAR: 'bar',
     });
   });
+
+  test('should return a new object and not mutate the original', () => {
+    let obj1 = {};
+    let obj2 = mapKeysToUpper(obj1);
+    expect(mapKeysToUpper(obj1)).not.toBe(obj2);
+
+    obj1 = { foo: 'foo', bar: 'bar' };
+    obj2 = mapKeysToUpper(obj1);
+    expect(mapKeysToUpper(obj1)).not.toBe(obj2);
+  });
 });
