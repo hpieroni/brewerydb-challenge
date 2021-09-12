@@ -1,7 +1,9 @@
 export { default as capitalize } from './capitalize';
+export { groupBy, groupByProp } from './groupBy';
 export { default as identity } from './identity';
 export { default as map } from './map';
 export { default as mapKeys } from './mapKeys';
+export { default as mapValues } from './mapValues';
 export { default as pipe } from './pipe';
 export { default as prop } from './prop';
 export { default as removeNulls } from './removeNulls';
