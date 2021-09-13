@@ -1,6 +1,10 @@
-import etl from '../../../src/etl/breweries/pipeline';
+import axios from 'axios';
+import BreweriesETL from '../../../src/etls/breweries/breweriesETL';
+import { RawBrewery } from '../../../src/etls/breweries/types';
 
-const rawBreweries = [
+jest.mock('axios');
+
+const rawBreweries: RawBrewery[] = [
   {
     id: 1,
     obdb_id: 'bnaf-llc-austin',
@@ -99,8 +103,27 @@ const expectedOutput = {
   ],
 };
 
-describe('data `pipeline` that transform raw breweveries', () => {
-  test('should transform the breweries into the expected format', () => {
-    expect(etl(rawBreweries)).toEqual(expectedOutput);
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+
+describe('Brewevery ETL', () => {
+  test('should return users list', async () => {
+    const res = {
+      json: jest.fn().mockImplementation(data => data),
+    } as any;
+
+    const context = { res };
+
+    mockedAxios.get.mockResolvedValue({
+      data: rawBreweries,
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: {},
+    });
+
+    await new BreweriesETL(context).run();
+
+    expect(axios.get).toHaveBeenCalledTimes(1);
+    expect(res.json).toHaveBeenCalledWith(expectedOutput);
   });
 });

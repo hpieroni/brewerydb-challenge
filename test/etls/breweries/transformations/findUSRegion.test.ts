@@ -1,4 +1,4 @@
-import findUSRegion from '../../../src/etl/breweries/findUSRegion';
+import findUSRegion from '../../../../src/etls/breweries/transformations/findUSRegion';
 
 describe('`findUSRegion` function', () => {
   test('should return the US region given a coordinate', () => {

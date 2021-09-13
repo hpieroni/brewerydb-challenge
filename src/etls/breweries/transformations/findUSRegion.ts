@@ -1,4 +1,4 @@
-import { isInsidePolygon, map, mapValues, isString } from '../../utils';
+import { isInsidePolygon, map, mapValues, isString } from '../../../utils';
 
 // It could have been a tuple [number, number] but keep it like an object to
 // be consistent with the map I created in https://jsfiddle.net/k785fL0c/1/

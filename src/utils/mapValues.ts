@@ -1,5 +1,3 @@
-import { ValueOf } from './types';
-
 /**
  * Map object values by running a mapping function to each one.
  *
@@ -12,9 +10,9 @@ import { ValueOf } from './types';
  * @param {object} obj The object to map values from.
  * @returns {object} The resulting object after mapping its values.
  */
-export const mapValues =  // TODO: make it work with AnyObject
-  <T extends Record<PropertyKey, any>, U>(fn: (value: ValueOf<T>) => U) =>
-  (obj: T): Record<PropertyKey, U> => {
+export const mapValues =
+  <T, U>(fn: (value: T) => U) =>
+  (obj: Record<PropertyKey, T>): Record<PropertyKey, U> => {
     const keys = Object.keys(obj) as Array<PropertyKey>;
 
     return keys.reduce((acc, key) => {

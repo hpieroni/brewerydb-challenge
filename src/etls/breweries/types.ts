@@ -1,4 +1,4 @@
-import { SnakeToCamelKeys } from '../../utils/types';
+import { SnakeToCamelKeys } from '../../utils';
 
 export type RawBrewery = {
   id: number;
@@ -24,4 +24,7 @@ export type RawBrewery = {
 export type Brewery = SnakeToCamelKeys<RawBrewery>;
 export type GroupedBreweries = Record<string, Brewery[]>;
 export type RegionalizedBrewery = Brewery & { region?: string };
-export type GroupedRegionalizedBrewery = Record<string, Brewery[]>;
+export type GroupedRegionalizedBreweries = Record<
+  string,
+  RegionalizedBrewery[]
+>;
