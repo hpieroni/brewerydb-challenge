@@ -1,5 +1,6 @@
 export { default as capitalize } from './capitalize';
 export { groupBy, groupByProp } from './groupBy';
+export { default as filter } from './filter';
 export { default as identity } from './identity';
 export { default as isInsidePolygon } from './isInsidePolygon';
 export { default as map } from './map';
