@@ -17,7 +17,7 @@ import {
   RegionalizedBrewery,
 } from './types';
 import { Nullable } from '../utils/types';
-import findUsRegion, { Coordinate } from './findUsRegion';
+import findUSRegion, { Coordinate } from './findUSRegion';
 
 const hasCoordinates = ({ latitude, longitude }: Nullable<Coordinate>) =>
   !isNil(latitude) && !isNil(longitude);
@@ -26,7 +26,7 @@ const filterGeolocalized = filter<Brewery>(hasCoordinates);
 
 const addRegion = map<Brewery, RegionalizedBrewery>(brewery => ({
   ...brewery,
-  region: findUsRegion({
+  region: findUSRegion({
     latitude: brewery.latitude as string,
     longitude: brewery.longitude as string,
   }),

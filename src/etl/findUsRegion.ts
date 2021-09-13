@@ -9,6 +9,8 @@ export interface Coordinate {
 
 type Region = Coordinate[];
 
+type RegionName = 'west' | 'midwest' | 'northeast' | 'south';
+
 /**
  * US regions approximation
  * @constant
@@ -16,7 +18,7 @@ type Region = Coordinate[];
  * @see https://www.worldatlas.com/articles/the-officially-recognized-four-regions-and-nine-divisions-of-the-united-states.html
  * @see https://jsfiddle.net/k785fL0c/1/
  */
-const US_REGIONS: Readonly<Record<string, Region>> = Object.freeze({
+const US_REGIONS: Readonly<Record<RegionName, Region>> = Object.freeze({
   west: [
     { latitude: 48.97218, longitude: -125.700957 },
     { latitude: 48.97218, longitude: -104.0527 },
@@ -79,13 +81,23 @@ const toPolygon = map(toPoint);
 
 const usRegionsPolygons = mapValues(toPolygon)(US_REGIONS);
 
-const findUsRegion = (coordinate: Coordinate): string | undefined => {
+/**
+ * Returns the US Region (west, midwest, northeast, south) given a coordinate
+ * `undefined` if the coordinate is not inside any of the US regions
+ *
+ * @example
+ *  findUSRegion({ latitude: 44.711201, longitude: -115.191289 }) // -> 'west"
+ *
+ * @param {Object} coordinate The coordinate to check
+ * @returns {string|undefined} The US Region or `undefined`.
+ */
+const findUSRegion = (coordinate: Coordinate): RegionName | undefined => {
   for (const regionName in usRegionsPolygons) {
     const regionPolygon = usRegionsPolygons[regionName];
     if (isInsidePolygon(regionPolygon)(toPoint(coordinate))) {
-      return regionName;
+      return regionName as RegionName;
     }
   }
 };
 
-export default findUsRegion;
+export default findUSRegion;
