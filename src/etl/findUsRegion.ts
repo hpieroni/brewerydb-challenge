@@ -1,4 +1,4 @@
-import { isInsidePolygon, map, mapValues } from '../utils';
+import { isInsidePolygon, map, mapValues, isString } from '../utils';
 
 // It could have been a tuple [number, number] but keep it like an object to
 // be consistent with the map I created in https://jsfiddle.net/k785fL0c/1/
@@ -69,12 +69,6 @@ const US_REGIONS: Readonly<Record<string, Region>> = Object.freeze({
     { latitude: 32.369518, longitude: -117.10205 },
   ],
 });
-
-//TODO? Translate to first cuadrant regions and coordinate to search
-
-function isString(x: any): x is string {
-  return typeof x === 'string';
-}
 
 const toPoint = ({ latitude, longitude }: Coordinate) => ({
   x: isString(latitude) ? parseFloat(latitude) : latitude,

@@ -3,6 +3,7 @@ export { groupBy, groupByProp } from './groupBy';
 export { default as filter } from './filter';
 export { default as identity } from './identity';
 export { default as isInsidePolygon } from './isInsidePolygon';
+export { isNull, isUndefined, isNil, isString } from './typeGuards';
 export { default as map } from './map';
 export { default as mapKeys } from './mapKeys';
 export { default as mapValues } from './mapValues';
