@@ -23,9 +23,9 @@ export const sortBy =
   (array: T[]): T[] =>
     [...array].sort((x, y) => {
       if (order === 'desc') {
-        return fn(y) <= fn(x) ? 1 : -1;
+        return fn(x) <= fn(y) ? 1 : -1;
       }
-      return fn(x) <= fn(y) ? 1 : -1;
+      return fn(y) <= fn(x) ? 1 : -1;
     });
 
 /**

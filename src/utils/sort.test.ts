@@ -4,12 +4,8 @@ describe('sorting functions', () => {
   describe('`sort` function', () => {
     test('should sort by ascending order', () => {
       expect(sort([])).toEqual([]);
-      expect(sort([18, 5, 1, 42])).toEqual(
-        expect.arrayContaining([1, 5, 18, 42])
-      );
-      expect(sort(['d', 'a', 'c', 'b'])).toEqual(
-        expect.arrayContaining(['a', 'b', 'c', 'd'])
-      );
+      expect(sort([18, 5, 1, 42])).toEqual([1, 5, 18, 42]);
+      expect(sort(['d', 'a', 'c', 'b'])).toEqual(['a', 'b', 'c', 'd']);
     });
 
     test('should return a new array and not mutate the original', () => {
@@ -23,30 +19,29 @@ describe('sorting functions', () => {
 
     test('should sort by a given prop in ascending order by default', () => {
       const sortyByAge = sortByProp('age');
-      const peopleOrdered = [{ age: 1 }, { age: 5 }, { age: 18 }, { age: 42 }];
+      const expectedSortedAges = [1, 5, 18, 42];
+      const sortedAges = sortyByAge(people).map(person => person.age);
 
       expect(sortyByAge([])).toEqual([]);
-      expect(sortyByAge(people)).toEqual(expect.arrayContaining(peopleOrdered));
+      expect(sortedAges).toEqual(expectedSortedAges);
     });
 
     test('should sort by a given prop in ascending order', () => {
       const sortyByAgeAsc = sortByProp('age', 'asc');
-      const peopleOrdered = [{ age: 1 }, { age: 5 }, { age: 18 }, { age: 42 }];
+      const expectedSortedAges = [1, 5, 18, 42];
+      const sortedAges = sortyByAgeAsc(people).map(person => person.age);
 
       expect(sortyByAgeAsc([])).toEqual([]);
-      expect(sortyByAgeAsc(people)).toEqual(
-        expect.arrayContaining(peopleOrdered)
-      );
+      expect(sortedAges).toEqual(expectedSortedAges);
     });
 
     test('should sort by a given prop in descending order', () => {
       const sortyByAgeDesc = sortByProp('age', 'desc');
-      const peopleOrdered = [{ age: 42 }, { age: 18 }, { age: 5 }, { age: 1 }];
+      const expectedSortedAges = [42, 18, 5, 1];
+      const sortedAges = sortyByAgeDesc(people).map(person => person.age);
 
       expect(sortyByAgeDesc([])).toEqual([]);
-      expect(sortyByAgeDesc(people)).toEqual(
-        expect.arrayContaining(peopleOrdered)
-      );
+      expect(sortedAges).toEqual(expectedSortedAges);
     });
 
     test('should return a new array and not mutate the original', () => {
@@ -61,26 +56,26 @@ describe('sorting functions', () => {
 
     test('should sort by a given function in ascending order by default', () => {
       const sortyByAbs = sortBy(Math.abs);
-      const orderedByAbs = [1, 5, -18, -42];
+      const sortedByAbs = [1, 5, -18, -42];
 
       expect(sortyByAbs([])).toEqual([]);
-      expect(sortyByAbs(numbers)).toEqual(expect.arrayContaining(orderedByAbs));
+      expect(sortyByAbs(numbers)).toEqual(sortedByAbs);
     });
 
     test('should sort by a given function in ascending order', () => {
       const sortyByAbs = sortBy(Math.abs, 'asc');
-      const orderedByAbs = [1, 5, -18, -42];
+      const sortedByAbs = [1, 5, -18, -42];
 
       expect(sortyByAbs([])).toEqual([]);
-      expect(sortyByAbs(numbers)).toEqual(expect.arrayContaining(orderedByAbs));
+      expect(sortyByAbs(numbers)).toEqual(sortedByAbs);
     });
 
     test('should sort by a given function in descending order', () => {
       const sortyByAbs = sortBy(Math.abs, 'desc');
-      const orderedByAbs = [-42, -18, 5, 1];
+      const sortedByAbs = [-42, -18, 5, 1];
 
       expect(sortyByAbs([])).toEqual([]);
-      expect(sortyByAbs(numbers)).toEqual(expect.arrayContaining(orderedByAbs));
+      expect(sortyByAbs(numbers)).toEqual(sortedByAbs);
     });
 
     test('should return a new array and not mutate the original', () => {
