@@ -15,6 +15,7 @@ import {
   Brewery,
   GroupedBreweries,
   RegionalizedBrewery,
+  GroupedRegionalizedBrewery,
 } from './types';
 import { Nullable } from '../utils/types';
 import findUSRegion, { Coordinate } from './findUSRegion';
@@ -49,9 +50,7 @@ const filterGeolocalizedAndRegionalizeGroups = mapValues(
   filterGeolocalizedAndRegionalize
 );
 
-function etl(
-  rawBreweries: RawBrewery[]
-): Record<string, RegionalizedBrewery[]> {
+function etl(rawBreweries: RawBrewery[]): GroupedRegionalizedBrewery {
   const pipeline = pipe(
     removeAllNullProperties,
     convertObjectKeysToCamelCase,
@@ -60,5 +59,13 @@ function etl(
   );
   return pipeline(rawBreweries);
 }
+
+// steps files
+export const pipeline = pipe(
+  removeAllNullProperties,
+  convertObjectKeysToCamelCase,
+  groupByStateAndSortByCreatedAt,
+  filterGeolocalizedAndRegionalizeGroups
+);
 
 export default etl;

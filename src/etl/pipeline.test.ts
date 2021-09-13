@@ -1,4 +1,4 @@
-import etl from './breweries';
+import etl from './pipeline';
 
 const rawBreweries = [
   {
@@ -99,7 +99,7 @@ const expectedOutput = {
   ],
 };
 
-describe('`etl` function', () => {
+describe('data `pipeline` that transform raw breweveries', () => {
   test('should transform the breweries into the expected format', () => {
     expect(etl(rawBreweries)).toEqual(expectedOutput);
   });
