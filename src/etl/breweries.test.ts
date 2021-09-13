@@ -2,7 +2,7 @@ import etl from './breweries';
 
 const rawBreweries = [
   {
-    id: 9094,
+    id: 1,
     obdb_id: 'bnaf-llc-austin',
     name: 'Bnaf, LLC',
     brewery_type: 'planning',
@@ -21,27 +21,86 @@ const rawBreweries = [
     updated_at: '2018-07-24T00:00:00.000Z',
     created_at: '2017-07-24T00:00:00.000Z',
   },
+  {
+    id: 2,
+    obdb_id: 'clermont-brewing-company-clermont',
+    name: 'Clermont Brewing Company',
+    brewery_type: 'planning',
+    street: null,
+    address_2: null,
+    address_3: null,
+    city: 'Clermont',
+    state: 'Florida',
+    county_province: null,
+    postal_code: '34711-2108',
+    country: 'United States',
+    longitude: '-83.254258',
+    latitude: '30.133335',
+    phone: null,
+    website_url: null,
+    updated_at: '2018-08-11T00:00:00.000Z',
+    created_at: '2018-07-24T00:00:00.000Z',
+  },
+  {
+    id: 3,
+    obdb_id: 'king-fox-brewery-hialeah',
+    name: 'King Fox Brewery',
+    brewery_type: 'planning',
+    street: null,
+    address_2: null,
+    address_3: null,
+    city: 'Hialeah',
+    state: 'Florida',
+    county_province: null,
+    postal_code: '33014-5231',
+    country: 'United States',
+    longitude: '-81.399649',
+    latitude: '27.153684',
+    phone: null,
+    website_url: null,
+    updated_at: '2018-08-11T00:00:00.000Z',
+    created_at: '2020-07-24T00:00:00.000Z',
+  },
 ];
 
 const expectedOutput = {
-  Texas: [
+  Texas: [],
+  Florida: [
     {
-      id: 9094,
-      obdbId: 'bnaf-llc-austin',
-      name: 'Bnaf, LLC',
+      id: 3,
+      obdbId: 'king-fox-brewery-hialeah',
+      name: 'King Fox Brewery',
       breweryType: 'planning',
-      city: 'Austin',
-      state: 'Texas',
-      postalCode: '78727-7602',
+      city: 'Hialeah',
+      state: 'Florida',
+      postalCode: '33014-5231',
       country: 'United States',
-      updatedAt: '2018-07-24T00:00:00.000Z',
-      createdAt: '2017-07-24T00:00:00.000Z',
+      longitude: '-81.399649',
+      latitude: '27.153684',
+      region: 'south',
+      updatedAt: '2018-08-11T00:00:00.000Z',
+      createdAt: '2020-07-24T00:00:00.000Z',
+    },
+    {
+      id: 2,
+      obdbId: 'clermont-brewing-company-clermont',
+      name: 'Clermont Brewing Company',
+      breweryType: 'planning',
+      city: 'Clermont',
+      state: 'Florida',
+      postalCode: '34711-2108',
+      country: 'United States',
+      longitude: '-83.254258',
+      latitude: '30.133335',
+      region: 'south',
+      updatedAt: '2018-08-11T00:00:00.000Z',
+      createdAt: '2018-07-24T00:00:00.000Z',
     },
   ],
 };
 
-describe('`capitalize` function', () => {
-  test('should return an empty string if input is ``', () => {
+describe('`etl` function', () => {
+  test('should transform the breweries into the expected format', () => {
     expect(etl(rawBreweries)).toEqual(expectedOutput);
   });
 });

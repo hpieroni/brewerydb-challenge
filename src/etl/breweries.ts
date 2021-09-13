@@ -1,5 +1,7 @@
 import {
+  filter,
   groupByProp,
+  isNil,
   map,
   mapKeys,
   mapValues,
@@ -8,37 +10,33 @@ import {
   snakeToCamel,
   sortByProp,
 } from '../utils';
-import { SnakeToCamelKeys } from '../utils/types';
+import {
+  RawBrewery,
+  Brewery,
+  GroupedBreweries,
+  RegionalizedBrewery,
+} from './types';
+import { Nullable } from '../utils/types';
+import findUsRegion, { Coordinate } from './findUsRegion';
 
-type RawBrewery = {
-  id: number;
-  obdb_id: string;
-  name: string;
-  brewery_type: string;
-  street: string | null;
-  address_2: string | null;
-  address_3: string | null;
-  city: string | null;
-  state: string;
-  county_province: string | null;
-  postal_code: string | null;
-  country: string;
-  longitude: string | null;
-  latitude: string | null;
-  phone: string | null;
-  website_url: string | null;
-  updated_at: string;
-  created_at: string;
-};
+const hasCoordinates = ({ latitude, longitude }: Nullable<Coordinate>) =>
+  !isNil(latitude) && !isNil(longitude);
 
-type Brewery = SnakeToCamelKeys<RawBrewery>;
-type GroupedBreweries = Record<string, Brewery[]>;
+const filterGeolocalized = filter<Brewery>(hasCoordinates);
 
-const removeNullPropertiesFromObjects = map<RawBrewery, RawBrewery>(
-  removeNulls
-);
+const addRegion = map<Brewery, RegionalizedBrewery>(brewery => ({
+  ...brewery,
+  region: findUsRegion({
+    latitude: brewery.latitude as string,
+    longitude: brewery.longitude as string,
+  }),
+}));
 
-const transformObjectKeysToCamelCase = map<RawBrewery, Brewery>(
+const filterGeolocalizedAndRegionalize = pipe(filterGeolocalized, addRegion);
+
+const removeAllNullProperties = map<RawBrewery, RawBrewery>(removeNulls);
+
+const convertObjectKeysToCamelCase = map<RawBrewery, Brewery>(
   mapKeys(snakeToCamel)
 );
 
@@ -47,11 +45,18 @@ const groupByStateAndSortByCreatedAt = pipe(
   mapValues<GroupedBreweries, Brewery[]>(sortByProp('createdAt', 'desc'))
 );
 
-function etl(rawBreweries: RawBrewery[]): GroupedBreweries {
+const filterGeolocalizedAndRegionalizeGroups = mapValues(
+  filterGeolocalizedAndRegionalize
+);
+
+function etl(
+  rawBreweries: RawBrewery[]
+): Record<string, RegionalizedBrewery[]> {
   const pipeline = pipe(
-    removeNullPropertiesFromObjects,
-    transformObjectKeysToCamelCase,
-    groupByStateAndSortByCreatedAt
+    removeAllNullProperties,
+    convertObjectKeysToCamelCase,
+    groupByStateAndSortByCreatedAt,
+    filterGeolocalizedAndRegionalizeGroups
   );
   return pipeline(rawBreweries);
 }
