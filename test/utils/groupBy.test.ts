@@ -1,4 +1,4 @@
-import { groupBy, groupByProp } from './groupBy';
+import { groupBy, groupByProp } from '../../src/utils/groupBy';
 
 describe('`grouping` functions', () => {
   describe('`groupBy` function', () => {

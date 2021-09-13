@@ -1,8 +1,8 @@
 import { Response } from 'express';
-import ETL from './etl';
-import { fetchJSON } from '../utils';
+import ETL from '../etl';
+import { fetchJSON } from '../../utils';
 import { RawBrewery, GroupedRegionalizedBrewery } from './types';
-import { pipeline } from './pipeline';
+import pipeline from './pipeline';
 
 export class BreveriesETL extends ETL<
   RawBrewery[],

@@ -1,4 +1,4 @@
-import mapValues from './mapValues';
+import mapValues from '../../src/utils/mapValues';
 
 describe('`mapValues` function', () => {
   const double = (n: number) => n * 2;

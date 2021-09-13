@@ -1,4 +1,4 @@
-import mapKeys from './mapKeys';
+import mapKeys from '../../src/utils/mapKeys';
 
 describe('`mapKeys` function', () => {
   const toUpperCase = (key: string) => key.toUpperCase();

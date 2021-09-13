@@ -1,4 +1,4 @@
-import snakeToCamel from './snakeToCamel';
+import snakeToCamel from '../../src/utils/snakeToCamel';
 
 describe('`snakeToCamel` function', () => {
   test('should return an empty string if input is ``', () => {

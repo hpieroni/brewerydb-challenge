@@ -1,4 +1,4 @@
-import identity from './identity';
+import identity from '../../src/utils/identity';
 
 describe('`identity` function', () => {
   test('should return the same value passed as argument', () => {

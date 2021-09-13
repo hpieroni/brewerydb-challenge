@@ -1,4 +1,4 @@
-import isInsidePolygon from './isInsidePolygon';
+import isInsidePolygon from '../../src/utils/isInsidePolygon';
 
 describe('`isInsidePolygon` function', () => {
   const square = [

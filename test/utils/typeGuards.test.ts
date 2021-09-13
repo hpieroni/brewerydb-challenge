@@ -1,4 +1,9 @@
-import { isNull, isUndefined, isNil, isString } from './typeGuards';
+import {
+  isNull,
+  isUndefined,
+  isNil,
+  isString,
+} from '../../src/utils/typeGuards';
 
 describe('type guard functions', () => {
   describe('`isNull` function', () => {

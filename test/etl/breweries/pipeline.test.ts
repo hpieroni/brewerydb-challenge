@@ -1,4 +1,4 @@
-import etl from './pipeline';
+import etl from '../../../src/etl/breweries/pipeline';
 
 const rawBreweries = [
   {

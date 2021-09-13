@@ -1,4 +1,4 @@
-import removePropsWith from './removePropsWith';
+import removePropsWith from '../../src/utils/removePropsWith';
 
 describe('`removePropsWith` function', () => {
   const removeOnes = removePropsWith(1);

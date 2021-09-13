@@ -1,4 +1,4 @@
-import filter from './filter';
+import filter from '../../src/utils/filter';
 
 describe('`filter` function', () => {
   const isEven = (n: number) => n % 2 === 0;

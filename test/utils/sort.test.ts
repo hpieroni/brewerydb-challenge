@@ -1,4 +1,4 @@
-import { sort, sortByProp, sortBy } from './sort';
+import { sort, sortByProp, sortBy } from '../../src/utils/sort';
 
 describe('sorting functions', () => {
   describe('`sort` function', () => {

@@ -1,5 +1,5 @@
 import express, { Application, Request, Response } from 'express';
-import BreweriesETL from './etl/breweriesETL';
+import BreweriesETL from './etl/breweries/breweriesETL';
 
 const app: Application = express();
 

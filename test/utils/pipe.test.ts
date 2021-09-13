@@ -1,4 +1,4 @@
-import pipe from './pipe';
+import pipe from '../../src/utils/pipe';
 
 describe('`pipe` function', () => {
   const length = (str: string) => str.length;

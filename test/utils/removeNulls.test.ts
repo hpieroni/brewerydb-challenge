@@ -1,4 +1,4 @@
-import removeNulls from './removeNulls';
+import removeNulls from '../../src/utils/removeNulls';
 
 describe('`removeNulls` function', () => {
   test('should work with empty objects', () => {

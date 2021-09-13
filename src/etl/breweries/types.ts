@@ -1,4 +1,4 @@
-import { SnakeToCamelKeys } from '../utils/types';
+import { SnakeToCamelKeys } from '../../utils/types';
 
 export type RawBrewery = {
   id: number;

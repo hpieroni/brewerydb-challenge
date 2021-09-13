@@ -1,4 +1,4 @@
-import prop from './prop';
+import prop from '../../src/utils/prop';
 
 describe('`prop` function', () => {
   const propFoo = prop('foo');

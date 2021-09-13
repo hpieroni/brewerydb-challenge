@@ -1,4 +1,4 @@
-import capitalize from './capitalize';
+import capitalize from '../../src/utils/capitalize';
 
 describe('`capitalize` function', () => {
   test('should return an empty string if input is ``', () => {

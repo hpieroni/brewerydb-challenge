@@ -9,7 +9,7 @@ import {
   removeNulls,
   snakeToCamel,
   sortByProp,
-} from '../utils';
+} from '../../utils';
 import {
   RawBrewery,
   Brewery,
@@ -17,9 +17,24 @@ import {
   RegionalizedBrewery,
   GroupedRegionalizedBrewery,
 } from './types';
-import { Nullable } from '../utils/types';
+import { Nullable } from '../../utils/types';
 import findUSRegion, { Coordinate } from './findUSRegion';
 
+// Step 1
+const removeAllNullProperties = map<RawBrewery, RawBrewery>(removeNulls);
+
+// Step 2
+const convertObjectKeysToCamelCase = map<RawBrewery, Brewery>(
+  mapKeys(snakeToCamel)
+);
+
+// Step 3
+const groupByStateAndSortByCreatedAt = pipe(
+  groupByProp<Brewery>('state'),
+  mapValues<GroupedBreweries, Brewery[]>(sortByProp('createdAt', 'desc'))
+);
+
+// Step 4
 const hasCoordinates = ({ latitude, longitude }: Nullable<Coordinate>) =>
   !isNil(latitude) && !isNil(longitude);
 
@@ -35,32 +50,11 @@ const addRegion = map<Brewery, RegionalizedBrewery>(brewery => ({
 
 const filterGeolocalizedAndRegionalize = pipe(filterGeolocalized, addRegion);
 
-const removeAllNullProperties = map<RawBrewery, RawBrewery>(removeNulls);
-
-const convertObjectKeysToCamelCase = map<RawBrewery, Brewery>(
-  mapKeys(snakeToCamel)
-);
-
-const groupByStateAndSortByCreatedAt = pipe(
-  groupByProp<Brewery>('state'),
-  mapValues<GroupedBreweries, Brewery[]>(sortByProp('createdAt', 'desc'))
-);
-
 const filterGeolocalizedAndRegionalizeGroups = mapValues(
   filterGeolocalizedAndRegionalize
 );
 
-function etl(rawBreweries: RawBrewery[]): GroupedRegionalizedBrewery {
-  const pipeline = pipe(
-    removeAllNullProperties,
-    convertObjectKeysToCamelCase,
-    groupByStateAndSortByCreatedAt,
-    filterGeolocalizedAndRegionalizeGroups
-  );
-  return pipeline(rawBreweries);
-}
-
-// steps files
+// Pipeline
 export const pipeline = pipe(
   removeAllNullProperties,
   convertObjectKeysToCamelCase,
@@ -68,4 +62,4 @@ export const pipeline = pipe(
   filterGeolocalizedAndRegionalizeGroups
 );
 
-export default etl;
+export default pipeline;
