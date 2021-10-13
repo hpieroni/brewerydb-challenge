@@ -1,3 +1,7 @@
+import curry2 from './curry2';
+
+type Predicate<T> = (value: T) => boolean;
+
 /**
  * A function that filter an array based on a predicate.
  *
@@ -9,10 +13,8 @@
  * @param {Array} array The array to filter.
  * @returns {Array} The filtered array.
  */
-const filter =
-  <T>(predicate: (value: T) => boolean) =>
-  (array: T[]): T[] => {
-    return array.filter(predicate);
-  };
+const filter = <T>(predicate: Predicate<T>, array: T[]): T[] => {
+  return array.filter(predicate);
+};
 
-export default filter;
+export default curry2(filter);

@@ -1,3 +1,5 @@
+import curry2 from './curry2';
+
 // Credits to https://rosettacode.org/wiki/Ray-casting_algorithm
 
 interface Point {
@@ -47,19 +49,17 @@ const isOdd = (num: number): boolean => num % 2 !== 0;
  *
  * @return {boolean} true if (lng, lat) is in bounds
  */
-const isInsidePolygon =
-  (polygon: Polygon) =>
-  (point: Point): boolean => {
-    // TODO: extract function and use `pipe` to compose with `isOdd`
-    const count = polygon.reduce((acc, polygonPoint, index) => {
-      const segment: Segment = {
-        start: polygonPoint,
-        end: polygon[(index + 1) % polygon.length], // next point of polygon (or first point if last point of polygon)
-      };
-      return west(segment, point) ? acc + 1 : acc;
-    }, 0);
+const isInsidePolygon = (polygon: Polygon, point: Point): boolean => {
+  // TODO: extract function and use `pipe` to compose with `isOdd`
+  const count = polygon.reduce((acc, polygonPoint, index) => {
+    const segment: Segment = {
+      start: polygonPoint,
+      end: polygon[(index + 1) % polygon.length], // next point of polygon (or first point if last point of polygon)
+    };
+    return west(segment, point) ? acc + 1 : acc;
+  }, 0);
 
-    return isOdd(count);
-  };
+  return isOdd(count);
+};
 
-export default isInsidePolygon;
+export default curry2(isInsidePolygon);

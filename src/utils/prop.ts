@@ -1,3 +1,4 @@
+import curry2 from './curry2';
 import { AnyObject } from './types';
 
 /**
@@ -12,9 +13,7 @@ import { AnyObject } from './types';
  * @param {object} object The object to get the key from.
  * @returns {*} The value in the object[key].
  */
-const prop =
-  <T extends AnyObject, K extends keyof T>(key: K) =>
-  (obj: T): T[K] =>
-    obj[key];
+const prop = <T extends AnyObject, K extends keyof T>(key: K, obj: T): T[K] =>
+  obj[key];
 
-export default prop;
+export default curry2(prop);

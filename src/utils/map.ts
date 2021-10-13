@@ -1,3 +1,7 @@
+import curry2 from './curry2';
+
+type MapFn<T, U> = (value: T) => U;
+
 /**
  * Transforms each element of an array with a given function.
  *
@@ -9,9 +13,6 @@
  * @param {Array} array The array to map
  * @returns {Array} The transformed array.
  */
-const map =
-  <T, U>(fn: (value: T) => U) =>
-  (array: T[]): U[] =>
-    array.map(fn);
+const map = <T, U>(fn: MapFn<T, U>, array: T[]): U[] => array.map(fn);
 
-export default map;
+export default curry2(map);

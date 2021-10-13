@@ -1,3 +1,4 @@
+import curry2 from './curry2';
 import prop from './prop';
 import { AnyObject } from './types';
 
@@ -11,11 +12,13 @@ import { AnyObject } from './types';
  *
  * @param {Function} fn Group key function. Receives an element and return the group key.
  * @param {Array} array The list of items to group.
- * @returns {Object} Ang object which every key has a group of items.
+ * @returns {Object} An object which every key has a group of items.
  */
-export const groupBy =
-  <T>(groupKeyFn: (item: T) => PropertyKey) =>
-  (array: T[]): Record<PropertyKey, T[]> =>
+export const groupBy = curry2(
+  <T>(
+    groupKeyFn: (item: T) => PropertyKey,
+    array: T[]
+  ): Record<PropertyKey, T[]> =>
     array.reduce((acc, current) => {
       const groupKey = groupKeyFn(current);
 
@@ -25,10 +28,11 @@ export const groupBy =
       acc[groupKey].push(current);
 
       return acc;
-    }, {} as Record<PropertyKey, T[]>);
+    }, {} as Record<PropertyKey, T[]>)
+);
 
 /**
- * Group a list of items by a given function.
+ * Group a list of items by a object property.
  *
  * @example
  *  const numbers = [
@@ -39,9 +43,9 @@ export const groupBy =
  *  const groupByAge = groupByProp('age');
  *  // -> { 20: [{ name: 'ana', age: 20 }, { name: 'george', age: 20 }], 30: [{ name: 'bob', age: 30 }] }
  *
- * @param {Function} fn Group key function. Receives an element and return the group key.
+ * @param {string} propName property object name
  * @param {Array} array The list of items to group.
- * @returns {Object} Ang object which every key has a group of items.
+ * @returns {Object} An object which every key has a group of items.
  */
 export const groupByProp = <T extends AnyObject>(
   propName: keyof T
